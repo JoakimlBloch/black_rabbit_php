@@ -1,7 +1,6 @@
 <?php
 
-class BlackRabbit3
-{
+class BlackRabbit3 {
     /**
      * TODO Goto Test/BlackRabbit3Test and write some tests that this method will fail
      * You are not allowed to change this method ;)
@@ -16,15 +15,10 @@ class BlackRabbit3
             if($amount > $estimatedResult){
                 $amount = $amount - $guess;
             }
-            else {
+            else{
                 $amount = $amount + $guess;
             }
         }
         return round($amount);
-    }
-
-    # Simple solution would be to simply create this method instead:
-    public function multiplyBySimple($amount, $multiplier) {
-        return $amount * $multiplier;
     }
 }

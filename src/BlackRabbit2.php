@@ -1,7 +1,7 @@
 <?php
 
-class BlackRabbit2
-{
+class BlackRabbit2 {
+
     /**
      * return a php array, that contains the amount of each type of coin, required to fulfill the amount.
      * The returned array should use as few coins as possible.
@@ -9,21 +9,26 @@ class BlackRabbit2
      * You can assume that $amount will be an int
      */
     public function findCashPayment($amount) {
-        $coins = [100, 50, 20, 10, 5, 2, 1]; # Init array of available coins in descending order to make loop check them from big to small values respectively
-        $result = []; # Init empty array to store results
-        
+        $coins = [100, 50, 20, 10, 5, 2, 1];
+        $result = [
+            "1" => 0,
+            "2" => 0,
+            "5" => 0,
+            "10" => 0,
+            "20" => 0,
+            "50" => 0,
+            "100" => 0,
+        ];
+
         foreach ($coins as $coin) {
             if ($amount >= $coin) {
-                $count = intdiv($amount, $coin); # Get how many coins of each is needed
-                $amount -= $count * $coin; # Subtract the total value of said coin from the amount before moving on to the next if needed
-                
-                if ($count >= 0) {
-                    $result[$coin] = $count; # Append count of how many times each coin was used in result array
-                }
+                $count = intdiv($amount, $coin);
+                $result[(string)$coin] = $count;
+                $amount -= $count * $coin;
             }
         }
 
-        return result; # Return array of coin results
+        return $result;
     }
 
 	/** * * * * * * 
@@ -35,26 +40,47 @@ class BlackRabbit2
 	 * What if $amount is 24?
 	 *
 	 */
-	
-    # Here's the bonus method where i've copied the same code with the array coins changed to the new values
-    # The problem being that, as the example mentions, if the amount was 24 it would take 20*1 and 1*4 instead of 8*3 with this method
-    # This happens because the method is set up to handle the coins values from highest to lowest 
-    # It's checking if it's subtractable from highest number down rather than if it's the most efficient method to find least coins as possible
-     public function findCashPaymentBonus($amount) {
-        $coins = [20, 10, 8, 5, 1]; # Init array of available coins in descending order to make loop check them from big to small values respectively
-        $result = []; # Init empty array to store results
-        
+    public function findCashPaymentBonus($amount) {
+        $coins = [20, 10, 8, 5, 1];
+        $result = [];
         foreach ($coins as $coin) {
-            if ($amount >= $coin) {
-                $count = intdiv($amount, $coin); # Get how many coins of each is needed
-                $amount -= $count * $coin; # Subtract the total value of said coin from the amount before moving on to the next if needed
-                
-                if ($count >= 0) {
-                    $result[$coin] = $count; # Append count of how many times each coin was used in result array
+            $result[(string)$coin] = 0;
+        }
+
+        $dp = array_fill(0, $amount + 1, PHP_INT_MAX);
+        $dp[0] = 0;
+
+        $track = array_fill(0, $amount + 1, -1);
+
+        for ($i = 1; $i <= $amount; $i++) {
+            foreach ($coins as $coin) {
+                if ($i >= $coin && $dp[$i - $coin] + 1 < $dp[$i]) {
+                    $dp[$i] = $dp[$i - $coin] + 1;
+                    $track[$i] = $coin;
                 }
             }
         }
 
-        return result; # Return array of coin results
+        if ($dp[$amount] == PHP_INT_MAX) {
+            return $result;
+        }
+
+        while ($amount > 0) {
+            $coin = $track[$amount];
+            $result[(string)$coin]++;
+            $amount -= $coin;
+        }
+
+        return $result;
     }
 }
+
+    $blackRabbit2 = new BlackRabbit2();
+
+    // Normal
+    $normal = $blackRabbit2->findCashPayment(26);
+    print_r($normal);
+
+    // Bonus
+    $bonus = $blackRabbit2->findCashPaymentBonus(24);
+    print_r($bonus);
