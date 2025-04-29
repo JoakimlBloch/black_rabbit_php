@@ -7,13 +7,11 @@ require_once(__DIR__ . "/../src/BlackRabbit.php");
 use PHPUnit_Framework_TestCase;
 use BlackRabbit;
 
-class BlackRabbitTest extends PHPUnit_Framework_TestCase
-{
+class BlackRabbitTest extends PHPUnit_Framework_TestCase {
     /** @var BlackRabbit */
     private $blackRabbit;
 
-    public function setUp()
-    {
+    public function setUp() {
         $this->blackRabbit = new BlackRabbit();
         parent::setUp();
     }
@@ -22,12 +20,12 @@ class BlackRabbitTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider medianProvider
      */
-    public function testMedian($expected, $file){
+    public function testMedian($expected, $file) {
         $result = $this->blackRabbit->findMedianLetterInFile($file);
         $this->assertTrue(in_array($result, $expected));
     }
 
-    public function medianProvider(){
+    public function medianProvider() {
         return array(
             array(array(array("letter" => "m", "count" => 9240), array("letter" => "f", "count" => 9095)), __DIR__ ."/../txt/text1.txt"),
             array(array(array("letter" => "w", "count" => 13333), array("letter" => "m", "count" => 12641)), __DIR__ ."/../txt/text2.txt"),
