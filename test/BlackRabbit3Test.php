@@ -34,7 +34,8 @@ class BlackRabbit3Test extends PHPUnit_Framework_TestCase {
             array(6, 3, 2), // 3 * 2 = 6
 
             // New test to reveal flaws
-            array(5, 0, 1), // 0 * 1 = 0, should return 0, test edge case
+            array(14, 7, 2),
+            array(0.9, 0.45, 2)
         );
     }
 }
