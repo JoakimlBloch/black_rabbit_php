@@ -15,7 +15,7 @@ class BlackRabbit {
     public function parseFile($filePath) {
         $content = file_get_contents($filePath);
 
-        $content = preg_replace('/[^a-zA-Z]/', '', $content);
+        $content = preg_replace('/[^\p{L}]/u', '', $content);
 
         $letters = str_split(strtolower($content));
 
@@ -61,23 +61,23 @@ class BlackRabbit {
     }
 }
 
-$blackRabbit = new BlackRabbit();
-$median = $blackRabbit->findMedianLetterInFile('../txt/text1.txt');
-$median2 = $blackRabbit->findMedianLetterInFile('../txt/text2.txt');
-$median3 = $blackRabbit->findMedianLetterInFile('../txt/text3.txt');
-$median4 = $blackRabbit->findMedianLetterInFile('../txt/text4.txt');
-$median5 = $blackRabbit->findMedianLetterInFile('../txt/text5.txt');
-echo "Median for text 1: \n";
-print_r($median);
-echo "Median for text 2: \n";
-print_r($median2);
-echo "Median for text 3: \n";
-print_r($median3);
-echo "Median for text 4: \n";
-print_r($median4);
-echo "Median for text 5: \n";
-print_r($median5);
+// $blackRabbit = new BlackRabbit();
+// $median = $blackRabbit->findMedianLetterInFile('../txt/text1.txt');
+// $median2 = $blackRabbit->findMedianLetterInFile('../txt/text2.txt');
+// $median3 = $blackRabbit->findMedianLetterInFile('../txt/text3.txt');
+// $median4 = $blackRabbit->findMedianLetterInFile('../txt/text4.txt');
+// $median5 = $blackRabbit->findMedianLetterInFile('../txt/text5.txt');
+// echo "Median for text 1: \n";
+// print_r($median);
+// echo "Median for text 2: \n";
+// print_r($median2);
+// echo "Median for text 3: \n";
+// print_r($median3);
+// echo "Median for text 4: \n";
+// print_r($median4);
+// echo "Median for text 5: \n";
+// print_r($median5);
 
-$blackRabbit = new BlackRabbit();
-$letters = $blackRabbit->parseFile('../txt/text5.txt');
-$blackRabbit->findMedianLetter($letters);
+// $blackRabbit = new BlackRabbit();
+// $letters = $blackRabbit->parseFile('../txt/text5.txt');
+// $blackRabbit->findMedianLetter($letters);
